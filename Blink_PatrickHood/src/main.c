@@ -11,13 +11,11 @@ int main(void)
     // or RCC ->AHB1ENR |= (1<<19)
 
 	// set any registers to control port A pin 5
-	// MODER
-    GPIOA ->MODER |= GPIO_MODER_MODER5_0 ;
-	// OTYPER
 
-	//OSPEEDR
-
-	//PUPDR
+    GPIOA ->MODER |= GPIO_MODER_MODER5_0 ; // OUTPUT MODE
+    GPIOA ->OTYPER &=~(GPIO_OTYPER_OT_5); // PUSH PULL MODE
+    GPIOA ->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR5; //HIGH SPEED MODE
+	GPIOA ->PUPDR &=~ (GPIO_PUPDR_PUPDR5);
 
 
   int i = 0;
