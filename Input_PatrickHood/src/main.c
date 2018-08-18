@@ -4,6 +4,12 @@
 
 int main(void)
 {
+	// Variable Declaration
+	volatile unsigned char buttonpressed=0;
+    volatile unsigned int  buttonpressedconfidencelevel=0;
+    volatile unsigned int  buttonreleasedconfidencelevel=0;
+    volatile unsigned int  confidencethreshold = 200;
+
 	RCC ->AHB1ENR |= RCC_AHB1ENR_GPIOAEN; // Enable PORT A ( LED )
 	RCC ->AHB1ENR |= RCC_AHB1ENR_GPIOCEN; // Enable PORT C ( SW )
 
@@ -28,11 +34,39 @@ int main(void)
   {
 	 if (GPIOC ->IDR & GPIO_IDR_IDR_13 )
 	 {
-		 GPIOA->BSRRH |= (1<<5); // Set Bit 5
+		 if (buttonpressed==0)
+		 {
+
+	 	 if (buttonpressedconfidencelevel > confidencethreshold)
+	 	 {
+
+			  GPIOA->BSRRH ^= (1<<5); // Set Bit 5
+   		 	  buttonpressed= 1;
+		 	 }
+	 	 else
+	 	 {
+			 buttonpressedconfidencelevel ++ ;
+			 buttonreleasedconfidencelevel =0;
+	 	      }
+		           }
+
 	 }
 	 else {
+		 	 if (buttonpressed==1)
+		 	 {
 
-		  GPIOA->BSRRL |= (1<<5); // Reset Bit 5
+		 	 if (buttonreleasedconfidencelevel > confidencethreshold)
+			 {
+	 	  	 GPIOA->BSRRL ^= (1<<5); // Reset Bit 5
+		 	 buttonpressed= 0;
+					 	 }
+		 	 else {
+			 		 buttonreleasedconfidencelevel ++ ;
+			 		 buttonpressedconfidencelevel =0 ;
+		 	        	 }
+		 	 	 }
+
+
 	 }
 
 
