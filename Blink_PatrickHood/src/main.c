@@ -42,11 +42,11 @@ int main(void)
   while (1)
   {
 	  //turn on LED using BSRR
-	  GPIOA->BSRRL |= GPIO_BSRR_BS_5;
+	  GPIOA->BSRRL |= (1<<5);
 	  //wait
 	  DELAY(200000);
 	  //turn off lED using BSRR
-	  GPIOA->BSRRH |= GPIO_BSRR_BR_5;
+	  GPIOA->BSRRH |= (1<<5);
 	  DELAY(200000);
 
   }
