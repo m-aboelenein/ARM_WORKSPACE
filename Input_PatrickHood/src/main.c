@@ -32,6 +32,7 @@ int main(void)
 
   while (1)
   {
+
 	 if (GPIOC ->IDR & GPIO_IDR_IDR_13 )
 	 {
 		 if (buttonpressed==0)
@@ -40,7 +41,7 @@ int main(void)
 	 	 if (buttonpressedconfidencelevel > confidencethreshold)
 	 	 {
 
-			  GPIOA->BSRRH ^= (1<<5); // Set Bit 5
+			  GPIOA->BSRRH ^= (1<<5); // Toggle Bit 5
    		 	  buttonpressed= 1;
 		 	 }
 	 	 else
@@ -57,7 +58,7 @@ int main(void)
 
 		 	 if (buttonreleasedconfidencelevel > confidencethreshold)
 			 {
-	 	  	 GPIOA->BSRRL ^= (1<<5); // Reset Bit 5
+	 	  	 GPIOA->BSRRL ^= (1<<5); // Toggle Bit 5
 		 	 buttonpressed= 0;
 					 	 }
 		 	 else {
@@ -65,10 +66,7 @@ int main(void)
 			 		 buttonpressedconfidencelevel =0 ;
 		 	        	 }
 		 	 	 }
-
-
 	 }
-
 
 
 
