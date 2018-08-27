@@ -13,7 +13,7 @@ int main(void)
     GPIOA -> MODER |= GPIO_MODER_MODER8_0;   // ALTERNATE Function MODE
 
     // you need to specify which Alternate function you want to use (see Data Sheet )
-    GPIOA -> AFR[1] =0b0000000000000001; // set the alternate function as timer 1
+    GPIOA -> AFR[1] = GPIO_AF_TIM1; // set the alternate function as timer 1
 
 
     // Setting for the TIMER
