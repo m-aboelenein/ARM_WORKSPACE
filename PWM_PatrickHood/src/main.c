@@ -28,6 +28,7 @@ int main(void)
     TIM1 -> CCER  |= TIM_CCER_CC1E; // Enable OUTPUT of the PWM on channel 1 needs moe enabled in next line
     TIM1 -> BDTR  |= TIM_BDTR_MOE ; // Enable general output
     TIM1 -> EGR   |= TIM_EGR_UG; // Enable UG BIT (REQUIRED)
+    TIM1 -> CR1   |= TIM_CR1_ARPE;
     TIM1 -> CR1 |= TIM_CR1_CEN; // Enable Timer
 
     while (1)
